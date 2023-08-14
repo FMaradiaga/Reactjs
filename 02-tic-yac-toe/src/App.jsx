@@ -29,13 +29,12 @@ const WINNWER_COMBOS = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6],
+  [2, 4, 6]
 ]
 
 
 
 function App() {
-
   const [board, SetBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.x)
   //null es porque no hay ganador y el false es porque hay un empate
@@ -53,33 +52,39 @@ function App() {
     return null
 
   }
-
+  const chekEndGame = (newBoard) => {
+    return
+  }
   const updateBoard = (index) => {
     //No actualizamos esta posicion
     //si ya tiene algo
     if (board[index] || winner) return
     //Actualizar el tableor
-
     const newBoard = [...board]
     newBoard[index] = turn
     SetBoard(newBoard)
     //Cambiar el turno
     const newTurn = turn === TURNS.x ? TURNS.o : TURNS.x
     setTurn(newTurn)
-
     //revizar si hay un ganador
     const newWinner = chekWinner(newBoard)
     if (newWinner) {
-      setWinner(() => {
-        return newWinner
-      })
-
+      setWinner(newWinner)
+    } else if (chekEndGame(newBoard)) {
+      setWinner(false)
     }
+  }
+
+  const resetGame = () => {
+    SetBoard(Array(9).fill(null))
+    setTurn(TURNS.x)
+    setWinner(null)
   }
 
   return (
     <main className='board'>
       <h1>TIC TAC TO</h1>
+      <button onClick={resetGame}>Reset del Juego</button>
       <section className="game">
         {
           board.map((_, index) => {
@@ -105,6 +110,29 @@ function App() {
           {TURNS.o}
         </Square>
       </section>
+
+
+      {
+        winner != null && (
+          <section className='winner'>
+            <div className='text'>
+              <h2>
+                {
+                  winner === false
+                    ? 'Empate'
+                    : `Ganador:`
+                }
+              </h2>
+              <header className='win'>
+                {winner && <Square>{winner}</Square>}
+              </header>
+              <footer>
+                <button onClick={resetGame}>Empezar de Nuevo</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
 
   )
