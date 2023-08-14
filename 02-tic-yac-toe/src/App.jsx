@@ -10,8 +10,20 @@ import './App.css'
 
 
 function App() {
-  const [board, SetBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(TURNS.x)
+  const [board, SetBoard] = useState(
+    () => {
+      const boardFromStorage = window.localStorage.getItem('board')
+      return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+    }
+
+  )
+  const [turn, setTurn] = useState(
+    () => {
+      const turnFromStorage = window.localStorage.getItem('turn')
+      // validar si tiene info o esta undefine
+      return turnFromStorage ?? TURNS.x
+    }
+  )
   //null es porque no hay ganador y el false es porque hay un empate
   const [winner, setWinner] = useState(null)
 
@@ -26,6 +38,9 @@ function App() {
     //Cambiar el turno
     const newTurn = turn === TURNS.x ? TURNS.o : TURNS.x
     setTurn(newTurn)
+    //guardar aqui partida
+    window.localStorage.setItem('board', JSON.stringify(newBoard))
+    window.localStorage.setItem('turn', newTurn)
     //revizar si hay un ganador
     const newWinner = chekWinnerFrom(newBoard)
     if (newWinner) {
@@ -40,6 +55,8 @@ function App() {
     SetBoard(Array(9).fill(null))
     setTurn(TURNS.x)
     setWinner(null)
+    window.localStorage.removeItem('board');
+    window.localStorage.removeItem('turn');
   }
 
   return (
