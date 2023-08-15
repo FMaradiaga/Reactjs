@@ -13,7 +13,6 @@ const FollowMoause = () => {
     const handleMove = (e) => {
       const { clientX, clientY } = e
       setPosition({ x: clientX, y: clientY })
-      console.log('move ', { clientX, clientY });
     }
     if (enabled) {
       window.addEventListener('pointermove', handleMove)
@@ -23,7 +22,7 @@ const FollowMoause = () => {
     //-> cuendo el componente se desmonta
     // cuendo cambian las dependencias, antes de ejecutar
     //el efecto denuevo
-    return () => {
+    return () => { // cleanup method
       console.log('clean up');
       window.removeEventListener('pointermove', handleMove)
       setPosition({ x: 0, y: 0 })
