@@ -3,9 +3,6 @@ export const TURNS = {
     o: 'o'
 }
 
-
-
-
 export const WINNWER_COMBOS = [
     [0, 1, 2],
     [3, 4, 5],
