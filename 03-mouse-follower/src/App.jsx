@@ -1,34 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useEffect, useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+const FollowMoause = () => {
+  const [enabled, setEnabled] = useState(false)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+
+  useEffect(() => {
+    console.log('efecto ', { enabled });
+
+    const handleMove = (e) => {
+      const { clientX, clientY } = e
+      setPosition({ x: clientX, y: clientY })
+      console.log('move ', { clientX, clientY });
+    }
+    if (enabled) {
+      window.addEventListener('pointermove', handleMove)
+    }
+
+    //cleand up
+    //-> cuendo el componente se desmonta
+    // cuendo cambian las dependencias, antes de ejecutar
+    //el efecto denuevo
+    return () => {
+      console.log('clean up');
+      window.removeEventListener('pointermove', handleMove)
+      setPosition({ x: 0, y: 0 })
+    }
+  }, [enabled])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div style={{
+        position: 'absolute',
+        backgroundColor: "rgba(0,0,0,0.5)",
+        border: '1px solid black',
+        borderRadius: '50%',
+        opacity: 0.8,
+        pointerEvents: 'none',
+        left: -20,
+        top: -20,
+        width: "20%",
+        height: "20%",
+        transform: `translate(${position.x}px, ${position.y}px)`,
+      }}></div><button onClick={() => setEnabled(!enabled)}>
+        {enabled ? 'Desactivar ' : 'Activar '}
+        Seguir puntero
+      </button>
     </>
+  )
+}
+
+function App() {
+  return (
+    <main>
+      <FollowMoause></FollowMoause>
+
+    </main>
   )
 }
 
