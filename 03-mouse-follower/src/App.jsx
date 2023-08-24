@@ -14,6 +14,7 @@ const FollowMoause = () => {
       const { clientX, clientY } = e
       setPosition({ x: clientX, y: clientY })
     }
+
     if (enabled) {
       window.addEventListener('pointermove', handleMove)
     }
@@ -37,6 +38,9 @@ const FollowMoause = () => {
     }
   }, [enabled])
 
+
+
+
   return (
     <>
       <div style={{
@@ -51,7 +55,8 @@ const FollowMoause = () => {
         width: "20%",
         height: "20%",
         transform: `translate(${position.x}px, ${position.y}px)`,
-      }}></div><button onClick={() => setEnabled(!enabled)}>
+      }}>
+        </div><button onClick={() => setEnabled(!enabled)}>
         {enabled ? 'Desactivar ' : 'Activar '}
         Seguir puntero
       </button>
