@@ -6,7 +6,6 @@ const CAT_PREFIX_IMAGE = 'https://cataas.com/'
 export function App () {
   const { fact, refresRandoFact } = useCatFact()
   const { imageUrl } = useCatImage({ fact })
-  // Recuperar la cita al cargar la pagina
 
   const handleClick = async () => {
     refresRandoFact()
