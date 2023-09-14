@@ -1,14 +1,33 @@
-import { Link } from '../Link.jsx'
+import { Link } from '../components/Link'
 
-export default function AboutPage() {
-    return (
-      <>
-      <h1>About</h1>
-      <div>
-      <img src="https://scontent.fsap5-1.fna.fbcdn.net/v/t39.30808-6/366371949_295326129841449_3506713080496429763_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a2f6c7&_nc_eui2=AeHFrrZGJ8W503B00fMD_EOlmUaAzKqlVheZRoDMqqVWF6bra8nTS6a72dgj8XCQSDEc3uEUEPfCfcd299quBlCi&_nc_ohc=Wfz6slC13TQAX-3e8uR&_nc_ht=scontent.fsap5-1.fna&oh=00_AfB66dwLNulIL2HO7wtO1NXhgcKiZGAkn1F3r8UvOq0ysA&oe=6505674F" alt="Foto de cmaradiaga" />
-        <p>Hola Me llamo Fernando y estoy creado un React Router</p>
-      </div>
-        <Link href='/'>Ir Home</Link>
-      </>
-    )
+const i18n = {
+  es: {
+    title: 'Sobre nosotros',
+    button: 'Ir a la home',
+    description: '¡Hola! Me llamo Miguel Ángel y estoy creando un clon de React Router.'
+  },
+  en: {
+    title: 'About us',
+    button: 'Go to home page',
+    description: 'Hi! My name is Miguel Ángel and I am creating a clone of React Router.'
   }
+}
+
+const useI18n = (lang) => {
+  return i18n[lang] || i18n.en
+}
+
+export default function AboutPage ({ routeParams }) {
+  const i18n = useI18n(routeParams.lang ?? 'es')
+
+  return (
+    <>
+      <h1>{i18n.title}</h1>
+      <div>
+        <img src='https://pbs.twimg.com/profile_images/1613612257015128065/oA0Is67J_400x400.jpg' alt='Foto de midudev' />
+        <p>{i18n.description}</p>
+      </div>
+      <Link to='/'>{i18n.button}</Link>
+    </>
+  )
+}
