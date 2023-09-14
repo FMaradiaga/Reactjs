@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link } from '../components/Link'
 
 const i18n = {

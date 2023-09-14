@@ -23,9 +23,11 @@ export function Router ({ children, routes = [], defaultComponent: DefaultCompon
   let routeParams = {}
 
   // add routes from children <Route /> components
+  // React proporciona una forma de iterar los Children
   const routesFromChildren = Children.map(children, ({ props, type }) => {
     const { name } = type
     const isRoute = name === 'Route'
+    console.log(children)
     return isRoute ? props : null
   })
 
