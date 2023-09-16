@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json.schemastore.org/swcrc",
+    "jsc": {
+        "externalHelpers": false,
+        // Requires v1.2.50 or upper and requires target to be es2016 or upper.
+        "keepClassNames": false,
+        "loose": true,
+        "parser": {
+            "decorators": false,
+            "decoratorsBeforeExport": false,
+            "dynamicImport": false,
+            "exportDefaultFrom": false,
+            "exportNamespaceFrom": false,
+            "functionBind": false,
+            "importMeta": false,
+            "jsx": true,
+            "privateMethod": false,
+            "syntax": "ecmascript",
+            "topLevelAwait": false
+        },
+        "target": "es2020",
+        "transform": {
+            "react": {
+                "runtime": "automatic"
+            }
+        }
+    },
+    "minify": true
+}
