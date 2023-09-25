@@ -1,7 +1,17 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll.rome": true,
-        "source.organizeImports": true
+    "[javascript]": {
+        "editor.defaultFormatter": "rome.rome"
     },
-    "editor.formatOnSave": true
+    "[javascriptReact]": {
+        "editor.defaultFormatter": "rome.rome"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "rome.rome"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "rome.rome"
+    },
+    "css.customData": [
+        ".vscode/css_custom_data.json"
+    ]
 }
