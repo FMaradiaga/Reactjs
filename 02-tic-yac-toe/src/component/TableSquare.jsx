@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Square } from "./Square"
 
 export function TableSquare({ board, updateBoard }) {
@@ -9,7 +10,12 @@ export function TableSquare({ board, updateBoard }) {
                         <Square
                             key={index}
                             index={index}
-                            updateBoard={updateBoard}
+                            updateBoard={updateBoard}    
+
+
+
+
+                            
                         >
                             {square}
                         </Square>

@@ -1,8 +1,17 @@
 {
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "standard": "^17.1.0"
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.11",
+    "@mui/material": "^5.14.11",
+    "@mui/styled-engine-sc": "^5.14.10",
+    "axios": "^1.5.1",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-nice-avatar": "^1.4.1",
+    "standard": "^17.1.0",
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -21,6 +30,10 @@
     }
   },
   "name": "hdtools2-0",
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
   "private": true,
   "scripts": {
     "build": "vite build",
