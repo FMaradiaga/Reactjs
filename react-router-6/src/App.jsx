@@ -79,7 +79,7 @@ function App() {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-      <hr />
+   {/*    <hr />
       <h2>Rutas con HashRouter</h2>
       {<HashRouter>
         <Header />
@@ -117,7 +117,7 @@ function App() {
           </Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </HashRouter>}
+      </HashRouter>} */}
     </div>
   );
 }

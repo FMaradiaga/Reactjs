@@ -1,8 +1,7 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./authProvider";
 
-import axios from './axios';
-const LOGIN_URL = '/auth';
+const LOGIN_URL = 'http://172.28.0.82:3030/autentication';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,7 +31,7 @@ function Copyright (props) {
 
 const defaultTheme = createTheme();
 
-const Login = () => {
+export const Login = () => {
     const config = genConfig()
     const { setAuth } = useContext(AuthContext);
     const userWindows = useRef();
@@ -43,33 +42,40 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
-        userWindows.current.focus();
-    }, [])
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [userWindows, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        console.log('Entro a la funcion');
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+
+           await fetch(LOGIN_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName:user, password:password })
+            })
+            .then(response => response.json())
+            .then(response => {
+                if (response.token) {
+                    localStorage.setItem('token', response.token)
+                    setAuth({ user, password });
+                    setUser('');
+                    setPwd('');
+                    setSuccess(true);
+                    
+                } else {
+                    alert('Usuario o contraseña incorrectos')
+                   
+
                 }
-            );
-            console.log(JSON.stringify(response?.data));
-            /* console.log(JSON.stringify(response)); */
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
-            setUser('');
-            setPwd('');
-            setSuccess(true);
+                })
+            .catch(err => console.error(err))
+
+           
+
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -80,10 +86,8 @@ const Login = () => {
             } else {
                 setErrMsg('Login Failed');
             }
-            errRef.current.focus();
         }
     }
-
     return (
         <>
             {success ? (
@@ -91,7 +95,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="#">Go to Home</a>
+                        <a href="/">Go to Home</a>
                     </p>
                 </section>
             ) : (
@@ -151,15 +155,16 @@ const Login = () => {
                                         id="password"
                                         onChange={(e) => setPwd(e.target.value)}
                                         value={password}
-                                        autoComplete="current-password"
+                                        autoComplete="off"
                                     />
                                     <Button
                                         type="submit"
                                         fullWidth
+                                        onClick={handleSubmit}
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
                                     >
-                                        Sign In
+                                        Ingresar al Sistema
                                     </Button>
                                     <Copyright sx={{ mt: 5 }} />
                                 </Box>
@@ -171,4 +176,3 @@ const Login = () => {
         </>
     )
 }
-export default Login
